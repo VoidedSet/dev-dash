@@ -1,0 +1,23 @@
+name: Build Docker Images
+
+# This workflow runs on every push to the 'main' branch
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # Use a standard Linux environment
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build the backend image
+        run: docker build -t devdash-backend ./backend
+
+      - name: Build the frontend image
+        run: docker build -t devdash-frontend ./frontend
